@@ -4,7 +4,7 @@ A simple example manifest that deploys two API apps to Cloud Foundry serving a p
 In addition this example shows how to set network policies with with the internal app domain for container to container networking that works with any port.
 Check and adapt the routes in the manifest before pushing.
 
-**Usage:** `cf push`
+**Usage:** `git clone https://github.com/funcf/twoAPIs.git && cd twoAPIs && cf push`
 
 Once the apps are running, simply curl the endpoint (failing as by default there is no connection between apps on the internal route). You can get the route of the customer-api in your environment like this: 
 `export MYURL="https://$(cf env customer-api|awk '/customer-api/{a=$1}END{print substr(a,2,length(a)-2)}'
