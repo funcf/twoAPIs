@@ -7,7 +7,7 @@ applications:
     path: customer_api
     command: python app.py
     env:
-      BACKEND_API_URL: http://backend-api.apps.internal:8080
+      BACKEND_API_URL: http://backend-api-x.apps.internal:8080
 
   - name: backend-api
     memory: 128M
@@ -16,5 +16,5 @@ applications:
     path: backend_api
     command: python app.py
     routes:
-      - route: backend-api.apps.internal
+      - route: backend-api-x.apps.internal
         internal: true

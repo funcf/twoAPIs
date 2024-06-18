@@ -6,17 +6,22 @@ Check and adapt the routes in the manifest before pushing.
 
 **Usage:** `cf push`
 
-Once the apps are running, simply curl the endpoint (failing as by default there is no connection between apps on the internal route).
+Once the apps are running, simply curl the endpoint (failing as by default there is no connection between apps on the internal route). You can get the route of the customer-api in your environment like this: 
+`export MYURL="https://$(cf env customer-api|awk '/customer-api/{a=$1}END{print substr(a,2,length(a)-2)}'
+)"`
 
-**Test 1:** `curl -G https://customer-api.apps.01.cf.eu01.onstackit.cloud/add --data-urlencode "num1=10" --data-urlencode "num2=20"`
+**Test 1:** 
+`curl -G $MYURL/add --data-urlencode "num1=10" --data-urlencode "num2=20"`
 
 Then grant the missing network access and let the change propagate for approx. 10 seconds with the following command (default protocol is TCP and default port is 8080 for HTTP):
 
-**Grant Network Access:** `cf add-network-policy customer-api backend-api`
+**Grant Network Access:** 
+`cf add-network-policy customer-api backend-api`
 
 Now test again the same endpoint from above or this one:
 
-**Test 1:** `curl -G https://customer-api.apps.01.cf.eu01.onstackit.cloud/multiply --data-urlencode "num1=10" --data-urlencode "num2=20"`
+**Test 1:** 
+`curl -G $MYURL/multiply --data-urlencode "num1=10" --data-urlencode "num2=20"`
 
 [More Details about Container to Container Networking within Cloud Foudry](https://docs.cloudfoundry.org/concepts/understand-cf-networking.html)
 
